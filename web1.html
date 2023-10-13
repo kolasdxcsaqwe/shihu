@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>读取中</title>
+    <script src="./jquery-1.9.1.min.js"></script>
+   
+
+</head>
+<body>
+	<script type="text/javascript">
+
+		function parseURL(url) { 
+		var a = document.createElement('a'); 
+		a.href = url; 
+		return { 
+			source: url, 
+			protocol: a.protocol.replace(':',''), 
+			host: a.hostname, 
+			port: a.port, 
+			query: a.search, 
+			params: (function(){ 
+				var ret = {}, 
+				seg = a.search.replace(/^\?/,'').split('&'), 
+				len = seg.length, i = 0, s; 
+				for (;i<len;i++) { 
+					if (!seg[i]) { continue; } 
+					s = seg[i].split('='); 
+					ret[s[0]] = s[1]; 
+				} 
+				return ret; 
+			})(), 
+			file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1], 
+			hash: a.hash.replace('#',''), 
+			path: a.pathname.replace(/^([^\/])/,'/$1'), 
+			relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1], 
+			segments: a.pathname.replace(/^\//,'').split('/') 
+		}; 
+	}
+
+		// console.log(window.location.href)
+		var myURL = parseURL(window.location.href);
+		if(myURL!=undefined &&  myURL.params!=undefined && myURL.params.agent !=undefined)
+		{
+
+			
+
+   			$(document).ready(function(){
+   						console.log("123123213")
+   					  $.getJSON("http://104.219.211.74:8563/AvailableDomainsJson.json?callback=?",{q:"sadsadss"},function(){
+         			console.log("asdsa")
+            	})
+   			})
+          
+			// window.location.href="http://10.91.6.35/"
+		}
+		
+	</script>
+</body>
+</html>
